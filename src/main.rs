@@ -4,12 +4,12 @@ fn main() {
     
     // Struct defined:
 
-     struct User {
-         active: bool,
-         username: String,
-         email: String,
-         sign_in_count: u64,
-     }
+    //  struct User {
+    //      active: bool,
+    //      username: String,
+    //      email: String,
+    //      sign_in_count: u64,
+    //  }
 
     // // Using a Struct:
 
@@ -41,27 +41,27 @@ fn main() {
    // }
     // Using the Field Init Shorthand
 
-    fn build_user(email: String, username: String) -> User {
-        User {
-            active: true,
-            username,
-            email,
-            sign_in_count: 1,
-        }
-    }
+    // fn build_user(email: String, username: String) -> User {
+    //     User {
+    //         active: true,
+    //         username,
+    //         email,
+    //         sign_in_count: 1,
+    //     }
+    // }
 
 
     // Creating Instances from Other Instances with Struct Update Syntax
 
     //fn main() {
-        let mut user1 = User {
-            active: true,
-            username: String::from("someusername123"),
-            email: String::from("someone@example.com"),
-            sign_in_count: 1,
-        };
+        // let mut user1 = User {
+        //     active: true,
+        //     username: String::from("someusername123"),
+        //     email: String::from("someone@example.com"),
+        //     sign_in_count: 1,
+        // };
     
-        user1.email = String::from("anotheremail@example.com");
+        // user1.email = String::from("anotheremail@example.com");
     //}
 
     // let _user2 = User {
@@ -73,10 +73,127 @@ fn main() {
 
     // OR..
 
-    let _user2 = User {
-        email: String::from("another@example.com"),
-        ..user1
-    };
+    // let _user2 = User {
+    //     email: String::from("another@example.com"),
+    //     ..user1
+    // };
+
+    // Core Roles of Structs
+
+    // A Data Modelling
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rectangle {
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+    }
+
+    // Associated Functions
+    impl Rectangle {
+        // Constructor
+        fn square(size: u32) -> Self {
+            Rectangle { width: size, height: size}
+        }
+    }
+
+    // Usage
+    let sq = Rectangle::square(12);
+
+    // Advanced Struct Types
+
+    // A Tuple Structs
+
+    struct Colour(u8, u8, u8);
+    let _black = Colour(0, 0, 0);
+
+    // Structs and Ownerhip (references with lifetmes)
+
+    // struct User {
+    //     username: String,
+    // }
+    // struct UserView<'a> {
+    //     username: &'a str, 
+    // }
+
+    // Pattern Matching with Structs
+
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+
+    fn print_coordinates(p: Point) {
+        match p {
+            Point {x,y} => println!("({}, {})", x,y),
+        }
+    }
+
+    // State MAchines
+    enum VendingMachineState {
+        Idle, 
+        Processing,
+        Dispensing,
+    }
+    struct VendingMachine {
+        state: VendingMachineState,
+        balance: u32,
+    }
+
+    // Deriving Traits for Structs
+
+    #[derive(Debug, Clone, PartialEq)]
+    struct User {
+        id: u32,
+        name: String,
+    }
+
+    // Practical Struct - Real World
+
+    #[derive(Debug)]
+    struct BlogPost {
+        title: String,
+        content: String,
+        views: u32,
+        tags: Vec<String>,
+    }
+
+    impl BlogPost {
+        // Constructor
+        fn new(title: String, content: String) -> Self {
+            BlogPost {
+                title,
+                content,
+                views: 0,
+                tags: Vec::new(),
+            }
+        }
+
+        // Method to increment views
+        fn increment_views(&mut self) {
+            self.views += 1;
+        }
+
+        fn add_tag(&mut self, tag: String) {
+            self.tags.push(tag);
+        }
+    }
+
+    fn main() {
+        let mut post = BlogPost::new(
+            String::from("Rust Structs Guide"),
+            String::from("Learn Structs please"),
+
+        );
+        post.add_tag(String::from("Rust"));
+        post.increment_views();
+        println!("{:#?}", post);
+
+    }
+
 
 
 }
