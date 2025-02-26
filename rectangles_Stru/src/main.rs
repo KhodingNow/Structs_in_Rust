@@ -53,23 +53,19 @@ fn main() {
 
     // Adding usefule Functionality with Dervived traits
     
-    #[derive(Debug)]
-    struct Rectangle {
-        width: u32,
-        height: u32,
-    }
+    // #[derive(Debug)]
+    // struct Rectangle {
+    //     width: u32,
+    //     height: u32,
+    // }
 
     
 
-        let rectl1 = Rectangle {
-            width: 40,
-            height: 60,
-        };
+    //     let rectl1 = Rectangle {
+    //         width: 40,
+    //         height: 60,
+    //     };
 
         //println!("rectl1 is {rectl1:?}");
-        dbg!(&rectl1);
+        //dbg!(&rectl1);
     
-
-}
-
-
